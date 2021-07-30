@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/jquery.min.js" type="module"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<script>
+
+
+    $(function (){
+        $.ajax({
+            url:"/hero/modify?name="+findaaName(),
+            type:"get",
+            dataType:"json",
+            success:function (data){
+                console.log(data);
+                $("#formGroupExampleInput1").val(data.id);
+                $("#formGroupExampleInput2").val(data.name);
+                $("#formGroupExampleInput3").val(data.force_name);
+                $("#formGroupExampleInput4").val(data.addr);
+                $("#formGroupExampleInput5").val(data.info);
+            }
+
+        }).then(function (data){
+            console.log(data);
+            // $("#formGroupExampleInput1").val(data.id);
+            // $("#formGroupExampleInput2").val(data.name);
+            // $("#formGroupExampleInput3").val(data.force_name);
+            // $("#formGroupExampleInput4").val(data.addr);
+            // $("#formGroupExampleInput5").val(data.info);
+        }).catch(function (xhr){
+            console.log(xhr.status);
+         });
+
+    })
+</script>
+<form action="/hero/change">
+<div class="mb-3">
+  <label for="formGroupExampleInput1" class="form-label">编号</label>
+  <input type="text" class="form-control" readonly unselectable=\"on\" id="formGroupExampleInput1" name="id" placeholder="编号">
+</div>
+<div class="mb-3">
+  <label for="formGroupExampleInput2" class="form-label">姓名</label>
+  <input type="text" class="form-control" id="formGroupExampleInput2" name="name" placeholder="姓名">
+</div>
+<div class="mb-3">
+  <label for="formGroupExampleInput3" class="form-label">武力值</label>
+  <input type="text" class="form-control" id="formGroupExampleInput3" name="force" placeholder="武力值">
+</div>
+<div class="mb-3">
+    <label for="formGroupExampleInput4" class="form-label">地址</label>
+    <input type="text" class="form-control" id="formGroupExampleInput4" name="address" placeholder="地址">
+</div><div class="mb-3">
+    <label for="formGroupExampleInput5" class="form-label">信息</label>
+    <input type="text" class="form-control" id="formGroupExampleInput5" name="info" placeholder="信息" >
+</div>
+<div class="mb-3">
+    <input type="submit" class="form-control" id="formGroupExampleInput6" value="提交" >
+</div>
+</form>
+<script>
+    function findaaName(){
+        var parms=window.location.search;
+        console.log(parms);
+        var parms_ary = parms.substring(1).split("=");
+        console.log(parms_ary[1]);
+        return parms_ary[1];
+    }
+</script>
+</body>
+
+</html>

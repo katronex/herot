@@ -1,0 +1,82 @@
+<!-- On tables -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<script>
+    $(function (){
+        $.ajax({
+            url:"/hero/heroes",
+            type:"get",
+            dataType:"json",
+            success:function (data){
+                $("#info").html("")
+                $.each(data ,function(i,n){
+                    $("#info").append("<tr>")
+                        .append("<th scope='row' name='id'>" +n.id + "</th>")
+                        .append("<td>" +n.name + "</td>")
+                        .append("<td>" +n.force_name + "</td>")
+                        .append("<td>" +n.addr + "</td>")
+                        .append("<td>" +n.info + "</td>")
+                        .append("<td> <input type=\"button\" id =\"change\" onclick=\"modify('"+n.name+"')\" class=\"btn btn-success\" value=\"修改\"  style = \"background-color:greenyellow\"/>\n" +
+                                "\t\t<input type=\"button\" onclick=\"del('"+n.id+"')\" value=\"删除\" class=\"btn btn-success\" style = \"background-color:red\"/></td>")
+                        .append("</tr>")
+                } )
+            }
+        })
+
+    })
+</script>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">编号</th>
+      <th scope="col">姓名</th>
+      <th scope="col">武力值</th>
+      <th scope="col">地址</th>
+      <th scope="col">信息</th>
+      <th scope="col"> <span>操作</span>
+		<input type="button" id ="submits" value="添加" onclick="addhero()" class="btn btn-success" style = "background-color:green"/>
+	  </th>
+    </tr>
+  </thead>
+  <tbody id="info">
+    <tr>
+      <th scope="row" name = "id">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+      <td>@mdo</td>
+      <td >
+	  	<input type="button" id ="change" onclick="modify()" value="修改" style = "background-color:green"/>
+		<input type="button" onclick="del()" value="删除" style = "background-color:red"/>
+	  </td>
+    </tr>
+  </tbody>
+</table>
+<script>
+  var del = function(obj){
+   if ( b = window.confirm("确定删除吗？")){
+     location.href="http://localhost:8080/hero/delete?id="+obj
+   }else {
+     location.reload()
+   }
+  }
+  var addhero = function (){
+    location.href="http://localhost:8080/hero/htmlt/heroAdd.html"
+
+  }
+
+  var modify = function (obj01){
+    console.log(obj01);
+    location.href="http://localhost:8080/hero/htmlt/heroModify.html?name="+obj01
+
+  }
+</script>
+</body>
+</html>
