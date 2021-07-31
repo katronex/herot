@@ -22,7 +22,7 @@
   <div class="mb-3">
     <button type="button" id="loginBtn" class="btn btn-primary">登录</button>
   </div>
-  <span id="error"></span>
+  <span id="error" style="color: red"></span>
 </form>
 
 <script>
@@ -40,15 +40,17 @@
         type: "post",
         dataType: "json",
         success: function (data) {
-          alert(data)
+          console.log(data)
+          location.href="http://localhost:8080"+data.msg
         },
-        error: function () {
-          alert("服务器发生了错误")
+        error:function (data) {
+          console.log(data)
+          $("#error").text(data.msg);
+          $("#formGroupExampleInput").val("")
+          $("#formGroupExampleInput2").val("")
         }
       });
-
   })
-
 </script>
 </body>
 </html>

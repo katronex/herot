@@ -24,6 +24,6 @@ public class DelServlet extends HttpServlet {
         String id = req.getParameter("id");
         String address = req.getParameter("address");
         heroService.removeHero(Integer.valueOf(id));
-            resp.sendRedirect("/hero");
+            resp.sendRedirect("/hero/htmlt/showHeroes.html");
     }
 }

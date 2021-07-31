@@ -32,6 +32,6 @@ public class AddServlet extends HttpServlet {
         Hero hero = new Hero(name,force,address,info);
         heroService.addHero(hero);
 
-        resp.sendRedirect("/hero");
+        resp.sendRedirect("/hero/htmlt/showHeroes.html");
     }
 }

@@ -29,6 +29,6 @@ public class UpdateServlet extends HttpServlet {
         String info = req.getParameter("info");
         Hero hero = new Hero(Integer.valueOf(id),name,force,address,info);
         heroService.modify(hero);
-        resp.sendRedirect("/hero");
+        resp.sendRedirect("/hero/htmlt/showHeroes.html");
     }
 }

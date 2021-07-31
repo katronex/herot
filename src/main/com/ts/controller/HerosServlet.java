@@ -31,5 +31,5 @@ public class HerosServlet extends HttpServlet {
         String HeroJson = gson.toJson(heroes);
         System.out.println(HeroJson);
         resp.getWriter().write(HeroJson);
-    }
-                        }
+        }
+}

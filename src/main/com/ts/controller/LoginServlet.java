@@ -26,15 +26,18 @@ public class LoginServlet extends HttpServlet {
         String name = req.getParameter("name");
         String password = req.getParameter("password");
         User user = heroService.searUser(name);
+        Gson gson = new Gson();
+        HashMap<Object, Object> map = new HashMap<>();
         if (password.equals(user.getPassword())){
             session.setAttribute("user",user);
-          //  req.getRequestDispatcher("/hero/htmlt/showHeroes.html");
-            resp.sendRedirect("htmlt/showHeroes.html");
-        }else {
-            Gson gson = new Gson();
-            HashMap<Object, Object> map = new HashMap<>();
+           // req.getRequestDispatcher("/htmlt/showHeroes.html").forward(req,resp);
+            map.put("msg","/hero/htmlt/showHeroes.html");
+            String s = gson.toJson(map);
+            resp.getWriter().write(s);
+        }else{
             map.put("msg","密码或用户名错误！！！");
             String s = gson.toJson(map);
+            resp.setStatus(404);
             resp.getWriter().write(s);
         }
     }

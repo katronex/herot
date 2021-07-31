@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 @WebFilter("/*")
-public class LoginFilger implements Filter {
+public class LoginFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
@@ -28,17 +28,18 @@ public class LoginFilger implements Filter {
         HttpServletRequest servletRequest1 = (HttpServletRequest) servletRequest;
         String requestURI = servletRequest1.getRequestURI();
         System.out.println("uri="+requestURI);
-        if (requestURI.contains("/login")||requestURI.contains("/js")||requestURI.contains("/login.html")){
+        if (requestURI.contains("/login")||requestURI.contains("/js/")||requestURI.contains("/login.html")||requestURI.endsWith("js")){
             filterChain.doFilter(servletRequest, servletResponse);
         }else {
             HttpSession session = servletRequest1.getSession();
             User user = (User)session.getAttribute("user");
-
             if (user!=null){
+                System.out.println("user不为空输出了"+requestURI);
                 System.out.println("username="+user.getName());
                 filterChain.doFilter(servletRequest,servletResponse);
+                return;
             }else {
-                ((HttpServletResponse)servletResponse).sendRedirect("htmlt/login.html");
+                ((HttpServletResponse)servletResponse).sendRedirect("/hero/htmlt/login.html");
             }
         }
     }
